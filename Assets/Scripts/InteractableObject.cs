@@ -24,13 +24,15 @@ public class InteractableObject : MonoBehaviour
 
    public bool alreadySearched = false;
 
+   public Transform actionPanelPosition;
+
     public void OnMouseDown()
     {
         Debug.Log("onMouseDown wird aufgerufen!");
 
         actionPanel.SetActive(true);
         //actionPanel.SetActive(activeOrNot);
-        actionPanel.transform.position = transform.position;
+        actionPanel.transform.position = actionPanelPosition.position;
 
         uiManager.activeIO = this; //this object
 
