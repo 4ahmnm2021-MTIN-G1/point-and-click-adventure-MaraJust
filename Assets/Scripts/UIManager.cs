@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
     public InteractableObject activeIO;
+    public InteractablePerson activeIP;
+    public Text talkFenster;
     public Text dialogFenster;
     public Text commentFenster;
 
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("DisplayText wird aufgerufen");
         dialogFenster.text = activeIO.inspectText;
+        talkFenster.text = activeIP.inspectText;
     }
 
     public void Exit () 
@@ -23,15 +25,17 @@ public class UIManager : MonoBehaviour
 
     public void CollectItem ()
     {
-        if (activeIO.alreadySearched = true)
+        if (activeIO.alreadySearched == true && activeIO.itemTaken == false)
         {
             Debug.Log("CollectItem Function ist aufgerufen");
 
             dialogFenster.text = activeIO.CollectText;
-            activeIO.img.sprite = activeIO.sr.sprite;
+            activeIO.GetComponent<interactionObject>().PickUp();
+            activeIO.itemTaken = true;
+
         } else 
         {
-            dialogFenster.text = "Bis jetzt nichts tragbares gefunden.";
+            dialogFenster.text = "Nichts tragbares mehr gefunden.";
         }
     }
 
@@ -44,5 +48,18 @@ public class UIManager : MonoBehaviour
     public void TakeALook () 
     {
         dialogFenster.text = activeIO.LookText;
+    }
+
+    public void TalkEvil()
+    {
+        talkFenster.text = activeIP.badTalkText;
+    }
+    public void TalkGood()
+    {
+        talkFenster.text = activeIP.goodTalkText;
+    }
+    public void LookAtHim()
+    {
+        talkFenster.text = activeIP.LookText;
     }
 }
